@@ -9,6 +9,14 @@ const choicesDiv = document.querySelector("#choices-div")
 
 console.log(startBtn, instructionsBtn)
 
+startBtn.addEventListener("click", () => {
+    titleCard.style.display = "none"
+    gameCard.style.display = "grid"
+    promptDiv.style.display = "flex"
+    choicesDiv.style.display = "grid"
+    displayRiddle(riddle[0])
+})
+
 const riddle = [
     {
         prompt: "You measure my life in hours and I serve you by expiring. I'm quick when I'm thin and slow when I'm fat. The wind is my enemy. What am I",
@@ -28,10 +36,3 @@ function displayRiddle(riddle) {
 }
 
 
-startBtn.addEventListener("click", () => {
-    titleCard.style.display = "none"
-    gameCard.style.display = "grid"
-    promptDiv.style.display = "flex"
-    choicesDiv.style.display = "grid"
-    displayRiddle()
-})
