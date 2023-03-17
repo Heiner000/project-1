@@ -24,18 +24,18 @@ In this text-based adventure game Hump must answer the troll's riddles correctly
 + Prompt area contains Troll's dialogue/riddle
 + 4 buttons of options for possible riddle solutions
 + Decrement Hump's limb count for each riddle missed
-+ Display loser screen for 4th loss & include reset button
-+ Display winner screen for _14(?)_+ riddles solved
-+ Randomly populate riddle prompt with riddles pulled from 3 different arrays rated on riddle difficulty
++ Display loser screen for 3rd loss & include reset button
++ Display winner screen for 3 riddles solved
 
 ## Stretch Goals
++ Set time limit for each answer
++ Randomly populate riddle prompt with riddles pulled from 3 different arrays rated on riddle difficulty
 + Include hard mode where instead of 4 buttons, there's just a form for user's input to answer riddles
 + Wizard difficulty mode: form/no buttons + only pull riddles from hardest array
 + Have additional prompts that allow Hump opportunities to gain or lose gold
 + Enough gold could purchase a distraction allowing Hump to skip a riddle
-+ Set time limit for each answer
 + Possible sprites or additional styling
 
 ## Potential Roadblocks
-+ Not sure if this qualifies as user playing against the computer/no multiplayer functionality
-+ 
++ focus on 'hangman aspect'
++ don't get stuck in busy work until MVP is finished
