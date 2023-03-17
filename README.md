@@ -9,7 +9,7 @@ The bridge Troll's **toll** must be paid, and he will only be satisfied with **b
 
 In this text-based adventure game Hump must answer the troll's riddles correctly to cross the bridge, otherwise he may take a limb. Lose more than 3 limbs and he won't make a very good wizard's apprentice anymore. Answer enough riddles correctly to bring back the required herbs or he'll lose his apprenticeship. 
 
-[Wireframe](./images/Wireframe.png)
+![Wireframe](./images/Wireframe.png)
 
 ## Tech Stack:
 
