@@ -10,42 +10,67 @@ body {
     justify-content: center;
 }
 
-.container {
-    margin: 0 auto;
-    border: hotpink 3px solid;
-}
-
 #title-card {
+    display: flex;
     border: black 5px dashed;
     padding: 20px;
     height: 80vh;
     width: 75vw;
     position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
 
+#start-btns {
+    display: flex;
 }
 
 #game-card {
-    border: blue 5px dashed;
+    /* border: blue 5px dashed; */
     padding: 20px;
     height: 75vh;
     width: 75vw;
     position: relative;
+    top: 5rem;
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    grid-template-rows: 2fr 1fr 1fr;
+    grid-template-areas: 
+    "sidebar prompt"
+    "sidebar prompt"
+    "btns btns";
     
 }
 
 #prompt-div {
-    border: aqua 3px dashed;
+    /* border: aqua 3px dashed; */
+    height: 260px;
+    grid-area: prompt;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .btn-grid {
-    border: red 5px dotted;
+    /* border: red 5px dotted; */
+    height: 250px;
+    grid-area: btns;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
+}
 
+aside {
+    grid-area: sidebar;
+}
+
+button {
+    margin: 3px;
 }
 
 #game-card, #prompt-div, #choices-div {
-    /* display: none; */
+    display: none;
 }
 
