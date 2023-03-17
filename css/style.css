@@ -12,19 +12,40 @@ body {
 
 .container {
     margin: 0 auto;
+    border: hotpink 3px solid;
 }
 
 #title-card {
     border: black 5px dashed;
     padding: 20px;
+    height: 80vh;
+    width: 75vw;
+    position: absolute;
+
 }
 
 #game-card {
     border: blue 5px dashed;
     padding: 20px;
+    height: 75vh;
+    width: 75vw;
+    position: relative;
+    
 }
 
-#btn-grid {
+#prompt-div {
+    border: aqua 3px dashed;
+}
+
+.btn-grid {
+    border: red 5px dotted;
     display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
 
 }
+
+#game-card, #prompt-div, #choices-div {
+    /* display: none; */
+}
+
