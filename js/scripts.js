@@ -6,6 +6,7 @@ const titleCard = document.querySelector("#title-card")
 const gameCard = document.querySelector("#game-card")
 const promptDiv = document.querySelector("#prompt-div")
 const choicesDiv = document.querySelector("#choices-div")
+const limbList = document.querySelector("#limb-list")
 
 const choice1 = document.querySelector("#choice-1")
 const choice2 = document.querySelector("#choice-2")
@@ -15,6 +16,7 @@ const choice4 = document.querySelector("#choice-4")
 let riddlesIndex = 0
 
 startBtn.addEventListener("click", () => {
+    console.log("That sounded like the click of a start button")
     titleCard.style.display = "none"
     gameCard.style.display = "grid"
     promptDiv.style.display = "flex"
@@ -22,10 +24,14 @@ startBtn.addEventListener("click", () => {
     displayRiddle(riddles[0])
 })
 
-choice1.addEventListener("click", handleChoiceClick)
-choice2.addEventListener("click", handleChoiceClick)
-choice3.addEventListener("click", handleChoiceClick)
-choice4.addEventListener("click", handleChoiceClick)
+instructionsBtn.addEventListener("click", () => {
+    
+})
+
+choice1.addEventListener("mousedown", handleChoiceClick)
+choice2.addEventListener("mousedown", handleChoiceClick)
+choice3.addEventListener("mousedown", handleChoiceClick)
+choice4.addEventListener("mousedown", handleChoiceClick)
 
 const riddles = [
     {
@@ -48,16 +54,19 @@ const riddles = [
 function handleChoiceClick(e) {
     const userChoice = e.target.innerText;
     const currentRiddle = riddles[riddlesIndex]
+    console.log("I heard a choice click")
 
     if (userChoice === currentRiddle.answer) {
         console.log("GOOD JOB - YOU GOT IT RIGHT")
+        // need to advance to next question
+        
+        riddlesIndex++
     } else {
-        console.log("OOPS, YOU'RE TROLL FOOD")
+        console.log("OOPS, LoSt A LiMb!!")
+        removeLimb()
     }
-    riddlesIndex++
-    console.log(riddlesIndex)
+    console.log("riddlesIndex: ", riddlesIndex)
     // need a feedback message
-    // need to advance to next question
 }
 
 function displayRiddle(riddle) {
@@ -69,6 +78,13 @@ function displayRiddle(riddle) {
 }
 
 // need a function to decrement Hump's limbs on wrong answers.
+function removeLimb() {
+    let lostLimb = limbList.lastElementChild
+    if (lostLimb) {
+        lostLimb.remove()
+        //  if lostLimb = head => trigger gameOverLoser
+    }
+}
     // maybe we want to add a few limbs to allow for wrong answers on multiple questions
 
 // need gameover screens, both winner & loser
