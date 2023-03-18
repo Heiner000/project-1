@@ -12,7 +12,7 @@ body {
 
 #title-card {
     display: flex;
-    border: black 5px dashed;
+    /* border: black 5px dashed; */
     padding: 20px;
     height: 80vh;
     width: 75vw;
@@ -60,6 +60,7 @@ body {
     height: 250px;
     grid-area: btns;
     display: grid;
+
 }
 
 aside {
