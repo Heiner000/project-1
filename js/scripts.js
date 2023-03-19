@@ -14,6 +14,7 @@ const choice2 = document.querySelector("#choice-2")
 const choice3 = document.querySelector("#choice-3")
 const choice4 = document.querySelector("#choice-4")
 
+
 let riddlesIndex = 0
 
 startBtn.addEventListener("click", () => {
@@ -60,7 +61,8 @@ function handleChoiceClick(e) {
     const userChoice = e.target.innerText;
     const currentRiddle = riddles[riddlesIndex]
     console.log("I heard a choice click")
-
+    
+    // create a checkAnswer function
     if (userChoice === currentRiddle.answer) {
         console.log("GOOD JOB - YOU GOT IT RIGHT")
         // need to advance to next question
@@ -90,7 +92,7 @@ function removeLimb() {
         //  if lostLimb = head => trigger gameOverLoser
     }
 }
-    // maybe we want to add a few limbs to allow for wrong answers on multiple questions
+
 
 // need gameover screens, both winner & loser
     // need reset button
