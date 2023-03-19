@@ -12,7 +12,7 @@ body {
 
 #title-card {
     display: flex;
-    /* border: black 5px dashed; */
+    border: black 5px dashed;
     padding: 20px;
     height: 80vh;
     width: 75vw;
@@ -60,11 +60,11 @@ body {
 } */
 
 #game-card {
-    /* border: blue 5px dashed; */
+    border: blue 5px dashed;
     padding: 20px;
     height: 75vh;
     width: 75vw;
-    position: absolute;
+    position: relative;
     top: 5rem;
     display: 0;
     grid-template-columns: 1fr 5fr;
@@ -77,7 +77,7 @@ body {
 }
 
 #prompt-div {
-    /* border: aqua 3px dashed; */
+    border: aqua 3px dashed;
     height: 260px;
     grid-area: prompt;
     display: flex;
@@ -86,11 +86,15 @@ body {
 }
 
 .btn-grid {
-    /* border: red 5px dotted; */
+    border: red 5px dotted;
     height: 250px;
     grid-area: btns;
-    display: grid;
+    display: flex;
+}
 
+#feedback-div {
+    display: none;
+    justify-content: center;
 }
 
 aside {
@@ -99,6 +103,12 @@ aside {
 
 button {
     margin: 3px;
+}
+
+.container {
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
 }
 
 #game-card, #prompt-div, #choices-div {
