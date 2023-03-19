@@ -29,14 +29,44 @@ body {
     display: flex;
 }
 
+#tooltip {
+    display: none;
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
+    background-color: #000;
+    color: white;
+    padding: 10px;
+    border-radius: 6px;
+}
+
+#instructions-btn: focus + #tooltip {
+    display: block;
+}
+
+.hidden{
+    display: none;
+}
+
+/* #tooltip::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 100%;
+    transform: translateX(-50%);
+    border: 15px solid;
+    border-color: #000 #0000 #0000 #0000;
+} */
+
 #game-card {
     /* border: blue 5px dashed; */
     padding: 20px;
     height: 75vh;
     width: 75vw;
-    position: relative;
+    position: absolute;
     top: 5rem;
-    display: grid;
+    display: 0;
     grid-template-columns: 1fr 5fr;
     grid-template-rows: 2fr 1fr 1fr;
     grid-template-areas: 

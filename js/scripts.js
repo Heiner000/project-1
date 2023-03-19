@@ -7,6 +7,7 @@ const gameCard = document.querySelector("#game-card")
 const promptDiv = document.querySelector("#prompt-div")
 const choicesDiv = document.querySelector("#choices-div")
 const limbList = document.querySelector("#limb-list")
+const tooltip = document.querySelector("#tooltip")
 
 const choice1 = document.querySelector("#choice-1")
 const choice2 = document.querySelector("#choice-2")
@@ -25,7 +26,11 @@ startBtn.addEventListener("click", () => {
 })
 
 instructionsBtn.addEventListener("click", () => {
-    
+    tooltip.classList.toggle("hidden")
+})
+
+tooltip.addEventListener("mouseleave", () => {
+    tooltip.classList.add("hidden")
 })
 
 choice1.addEventListener("mousedown", handleChoiceClick)
