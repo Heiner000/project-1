@@ -14,7 +14,7 @@ body {
 
 #title-card {
     display: flex;
-    border: black 5px dashed;
+    /* border: black 5px dashed; */
     padding: 20px;
     height: 80vh;
     width: 75vw;
@@ -52,7 +52,6 @@ body {
     left: 50%;
     top: 0;
     transform: translateX(-50%);
-    /* transform: translateY(50%); */
     background-color: #000;
     color: #fff;
     padding: 10px 15px;
@@ -79,7 +78,7 @@ body {
 }
 
 #game-card {
-    border: blue 5px dashed;
+    /* border: blue 5px dashed; */
     padding: 20px;
     height: 75vh;
     width: 75vw;
@@ -96,7 +95,7 @@ body {
 }
 
 #prompt-div {
-    border: aqua 3px dashed;
+    /* border: aqua 3px dashed; */
     height: 260px;
     grid-area: prompt;
     display: flex;
@@ -106,7 +105,7 @@ body {
 }
 
 .btn-grid {
-    border: red 5px dotted;
+    /* border: red 5px dotted; */
     height: 250px;
     grid-area: btns;
     display: flex;
@@ -135,3 +134,21 @@ button {
     display: none;
 }
 
+.troll-phrase {
+    font-size: 1rem;
+    color: maroon;
+    font-weight: bold;
+}
+
+.win-text {
+    font-size: 2rem;
+    color: goldenrod;
+    font-weight: bold;
+}
+
+.lose-text {
+    font-size: 2rem;
+    color: greenyellow;
+    font-weight: bold;
+    text-shadow: 2px 2px 5px red;
+}

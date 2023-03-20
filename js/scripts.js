@@ -8,13 +8,26 @@ const promptDiv = document.querySelector("#prompt-div")
 const choicesDiv = document.querySelector("#choices-div")
 const limbList = document.querySelector("#limb-list")
 const tooltip = document.querySelector("#tooltip")
+const feedbackDiv = document.querySelector("#feedback-div")
+const limbCount = document.querySelector("#limb-count")
+
 
 const choice1 = document.querySelector("#choice-1")
 const choice2 = document.querySelector("#choice-2")
 const choice3 = document.querySelector("#choice-3")
 const choice4 = document.querySelector("#choice-4")
 
-let gameOver = false
+let jobsDone = false
+let limbCountVar = 5
+
+const trollingPhrases = [
+    "*CHOMP* Wrong! *nomnomnom*",
+    "Nope! *crunchcrunch*",
+    "*crunching and slurrping noises*",
+    "Nice Try! I'll take that...",
+    "Just a quick bite",
+    "How about a small piece"
+]
 
 const riddles = [
     {
@@ -46,14 +59,6 @@ startBtn.addEventListener("click", () => {
     displayRiddle(riddles[0])
 })
 
-instructionsBtn.addEventListener("click", () => {
-    tooltip.classList.toggle("hidden")
-})
-
-tooltip.addEventListener("mouseleave", () => {
-    tooltip.classList.add("hidden")
-})
-
 choice1.addEventListener("mousedown", handleChoiceClick)
 choice2.addEventListener("mousedown", handleChoiceClick)
 choice3.addEventListener("mousedown", handleChoiceClick)
@@ -72,12 +77,10 @@ function handleChoiceClick(e) {
 }
 
 function checkAnswer(userChoice, currentRiddleAnswer) {
-
     if (userChoice === currentRiddleAnswer) {
         console.log("GOOD JOB - YOU GOT IT RIGHT")  // **** I want to make this it's own function
         // need a feedback message
         choicesDiv.style.display = "none"
-        const feedbackDiv = document.querySelector("#feedback-div")
         feedbackDiv.style.display = "flex"
         feedbackDiv.innerText = "Good jorb, we'll see if you can do it again..."
         
@@ -87,7 +90,9 @@ function checkAnswer(userChoice, currentRiddleAnswer) {
         nextRiddleBtn.id = "next-riddle-btn"
         feedbackDiv.append(nextRiddleBtn)
         if (riddlesIndex === riddles.length) {
-            // *** need a reset button event listener
+            jobsDone = true
+            gameOver()
+            // *** need a reset button function *********
             nextRiddleBtn.innerText = "Reset"
             nextRiddleBtn.addEventListener("click", () => {
                 console.log("That sounded like the click of a reset button")
@@ -96,24 +101,34 @@ function checkAnswer(userChoice, currentRiddleAnswer) {
                 promptDiv.style.display = "none"
                 choicesDiv.style.display = "none"
                 feedbackDiv.style.display = "none"
+                riddlesIndex = 0
+                limbCountVar = 5
             })
         } else {
-            // ***
             nextRiddleBtn.innerText = "Next Riddle"
             nextRiddleBtn.addEventListener("click", () => {
                 feedbackDiv.style.display = "none"
                 displayRiddle(riddles[riddlesIndex])
-
             })
         }
         
     } else {
-            // [stretch goal: create an array of troll trolling phrases to cycle through]
-        let trollPhrase = document.createElement("p")
-        trollPhrase.innerText = "Wrong! Nom nom nom"
-        promptDiv.appendChild(trollPhrase)
-        // console.log("OOPS, LoSt A LiMb!!")
-        removeLimb()
+        if (limbCountVar > 0) {
+            const trollingIndex = Math.floor(Math.random() * trollingPhrases.length)
+            const trollPhrase = document.createElement("p")
+            trollPhrase.className = "troll-phrase"
+            trollPhrase.innerText = trollingPhrases[trollingIndex]
+            if (promptDiv.lastChild.className === "troll-phrase") {
+                promptDiv.lastChild.innerText = trollPhrase.innerText + `... you've lost a limb`;
+            } else {
+                promptDiv.appendChild(trollPhrase)
+            }
+            // console.log("OOPS, LoSt A LiMb!!")
+            removeLimb()
+        } else {
+            jobsDone = true
+            gameOver()
+        }
     }
 }
 
@@ -129,35 +144,47 @@ function displayRiddle(riddle) {
 
 // need a function to decrement Hump's limbs on wrong answers.
 function removeLimb() {
-    let head = document.querySelector("#head")
-    let lostLimb = limbList.lastElementChild
-    if (lostLimb !== head) {
+    limbCountVar -= 1
+    limbCount.innerText = limbCountVar
+    let lostLimb = limbList.lastElementChild  
+    if (limbCountVar > 0) {
         console.log(`${lostLimb} removed.`)
         lostLimb.remove()
     } else {
-        gameOver = true
+        jobsDone = true
         console.log("Game Over, you're troll food.")
         lostLimb.remove()
+        gameOver()
     }
 }
 
-
-
 // need gameover screens, both winner & loser
-    // need reset button
+function gameOver() {
+    choicesDiv.style.display = "none"
+    feedbackDiv.style.display = "flex"
+    if (jobsDone = true) {
+        if (limbCountVar > 0) {
+            promptDiv.style.classList
+            promptDiv.innerText = "You won! You paid the Troll's Toll with change leftover- time to celebrate!"
+            promptDiv.classList.toggle("win-text")
+        } else {
+            promptDiv.innerText = "You lose! The Bridge Troll's Toll cost you everything. Good luck with your next life."
+            promptDiv.classList.toggle("lose-text")
+            const resetButton = document.createElement("button")
+            resetButton.innerText = "Reset"
+            feedbackDiv.append(resetButton)
+            resetButton.addEventListener("click", () => {
+                console.log("That sounded like the click of a reset button")
+                titleCard.style.display = "flex"
+                gameCard.style.display = "none"
+                promptDiv.style.display = "none"
+                choicesDiv.style.display = "none"
+                feedbackDiv.style.display = "none"
+                riddlesIndex = 0
+                limbCountVar = 5
+                promptDiv.classList.toggle("lose-text")
+            })
+        }
+    }
 
-
-/*
-const feedbackDiv = document.createElement("div")
-const nextRiddleBtn = document.createElement("button")
-nextRiddleBtn.innerText = "Next Riddle"
-feedbackDiv.appendChild(nextRiddleBtn)
-
-const feedbackDiv = document.querySelector("#feedback-div")
-feedbackDiv.style.display = "block"
-
-nextRiddleBtn.addEventListener("click", () => {
-    feedbackDiv.style.display = "none"
-    displayRiddle()
-})
-*/
+}
