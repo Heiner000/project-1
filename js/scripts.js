@@ -71,13 +71,15 @@ function handleChoiceClick(e) {
 function checkAnswer(userChoice) {
 
     if (userChoice === currentRiddle.answer) {
-        console.log("GOOD JOB - YOU GOT IT RIGHT")
+        console.log("GOOD JOB - YOU GOT IT RIGHT")  // **** I want to make this it's own function
         // need a feedback message
         choicesDiv.style.display = "none"
         const feedbackDiv = document.querySelector("#feedback-div")
         feedbackDiv.style.display = "flex"
         feedbackDiv.innerText = "Good jorb, we'll see if you can do it again..."
         // need to advance to next question
+        riddlesIndex++
+
         const nextRiddleBtn = document.createElement("button")
         nextRiddleBtn.id = "next-riddle-btn"
         feedbackDiv.append(nextRiddleBtn)
@@ -87,12 +89,16 @@ function checkAnswer(userChoice) {
         } else {
             // ***
             nextRiddleBtn.innerText = "Next Riddle"
+            nextRiddleBtn.addEventListener("click", () => {
+                displayRiddle(riddles[riddlesIndex])
+            })
         }
-        riddlesIndex++
         
     } else {
-        // *** I want to append a lost limb message to prompt
             // [stretch goal: create an array of troll trolling phrases to cycle through]
+        let trollPhrase = document.createElement("p")
+        trollPhrase.innerText = "Wrong! Nom nom nom"
+        promptDiv.appendChild(trollPhrase)
         console.log("OOPS, LoSt A LiMb!!")
         removeLimb()
     }

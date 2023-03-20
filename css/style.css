@@ -81,6 +81,7 @@ body {
     height: 260px;
     grid-area: prompt;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
 }
