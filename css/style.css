@@ -1,10 +1,12 @@
 *, *::before, *::after {
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
 }
 body {
+    height: 100vh;
+    width: 100%;
     display: flex;
-    padding: 0;
-    margin: 0;
     background-color: gray;
     align-items: center;
     justify-content: center;
@@ -27,29 +29,40 @@ body {
 
 #start-btns {
     display: flex;
+    width: 30vw;
+    height: 10vh;
+    justify-content: space-around;
+    align-items: center;
 }
 
+.start-btns {
+    font-size: 18px;
+    width: 10vw;
+    padding: 5px;
+}
+/* tooltip tutorial: https://www.youtube.com/watch?v=qdiUrCnuCjI */
 #tooltip {
-    display: none;
+    position: relative;
+    cursor: pointer;
+    padding: 7px;
+}
+#tooltip-text {
     position: absolute;
+    width: 50vw;
     left: 50%;
     top: 0;
     transform: translateX(-50%);
+    /* transform: translateY(50%); */
     background-color: #000;
-    color: white;
-    padding: 10px;
-    border-radius: 6px;
+    color: #fff;
+    padding: 10px 15px;
+    border-radius: 7px;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.5s ease;
 }
 
-#instructions-btn: focus + #tooltip {
-    display: block;
-}
-
-.hidden{
-    display: none;
-}
-
-/* #tooltip::before {
+ #tooltip-text::before {
     content: "";
     position: absolute;
     left: 50%;
@@ -57,7 +70,13 @@ body {
     transform: translateX(-50%);
     border: 15px solid;
     border-color: #000 #0000 #0000 #0000;
-} */
+}
+
+#tooltip:hover #tooltip-text {
+    top: -300%;
+    visibility: visible;
+    opacity: 1;
+}
 
 #game-card {
     border: blue 5px dashed;

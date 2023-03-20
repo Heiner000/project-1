@@ -14,6 +14,8 @@ const choice2 = document.querySelector("#choice-2")
 const choice3 = document.querySelector("#choice-3")
 const choice4 = document.querySelector("#choice-4")
 
+let gameOver = false
+
 const riddles = [
     {
         prompt: "You measure my life in hours and I serve you by expiring. I'm quick when I'm thin and slow when I'm fat. The wind is my enemy. What am I",
@@ -22,11 +24,11 @@ const riddles = [
     },
     {
         prompt: "I am not alive, but I grow; I don't have lungs, but I need air; I don't have a mouth, but I consume all that surrounds me. What am I?",
-        choices: ["Fire","Rust", "Crystal","River"],
+        choices: ["Rust","Crystal","Fire","River"],
         answer: "Fire"
     },
     {
-        prompt: "I am light as a feather, yet the strongest man cannot hold me fo rmuch more than a moment. What am I?",
+        prompt: "I am light as a feather, yet the strongest man cannot hold me for much more than a moment. What am I?",
         choices: ["Thought","Time","Idea","Breath"],
         answer: "Breath"
     }
@@ -87,6 +89,14 @@ function checkAnswer(userChoice, currentRiddleAnswer) {
         if (riddlesIndex === riddles.length) {
             // *** need a reset button event listener
             nextRiddleBtn.innerText = "Reset"
+            nextRiddleBtn.addEventListener("click", () => {
+                console.log("That sounded like the click of a reset button")
+                titleCard.style.display = "flex"
+                gameCard.style.display = "none"
+                promptDiv.style.display = "none"
+                choicesDiv.style.display = "none"
+                feedbackDiv.style.display = "none"
+            })
         } else {
             // ***
             nextRiddleBtn.innerText = "Next Riddle"
@@ -102,7 +112,7 @@ function checkAnswer(userChoice, currentRiddleAnswer) {
         let trollPhrase = document.createElement("p")
         trollPhrase.innerText = "Wrong! Nom nom nom"
         promptDiv.appendChild(trollPhrase)
-        console.log("OOPS, LoSt A LiMb!!")
+        // console.log("OOPS, LoSt A LiMb!!")
         removeLimb()
     }
 }
@@ -119,12 +129,18 @@ function displayRiddle(riddle) {
 
 // need a function to decrement Hump's limbs on wrong answers.
 function removeLimb() {
+    let head = document.querySelector("#head")
     let lostLimb = limbList.lastElementChild
-    if (lostLimb) {
+    if (lostLimb !== head) {
+        console.log(`${lostLimb} removed.`)
         lostLimb.remove()
-        //  if lostLimb = head => trigger gameOverLoser
+    } else {
+        gameOver = true
+        console.log("Game Over, you're troll food.")
+        lostLimb.remove()
     }
 }
+
 
 
 // need gameover screens, both winner & loser
