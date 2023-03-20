@@ -95,14 +95,7 @@ function checkAnswer(userChoice, currentRiddleAnswer) {
             // *** need a reset button function *********
             nextRiddleBtn.innerText = "Reset"
             nextRiddleBtn.addEventListener("click", () => {
-                console.log("That sounded like the click of a reset button")
-                titleCard.style.display = "flex"
-                gameCard.style.display = "none"
-                promptDiv.style.display = "none"
-                choicesDiv.style.display = "none"
-                feedbackDiv.style.display = "none"
-                riddlesIndex = 0
-                limbCountVar = 5
+                resetGame()
             })
         } else {
             nextRiddleBtn.innerText = "Next Riddle"
@@ -145,15 +138,11 @@ function displayRiddle(riddle) {
 // need a function to decrement Hump's limbs on wrong answers.
 function removeLimb() {
     limbCountVar -= 1
-    limbCount.innerText = limbCountVar
-    let lostLimb = limbList.lastElementChild  
     if (limbCountVar > 0) {
-        console.log(`${lostLimb} removed.`)
-        lostLimb.remove()
+        limbCount.innerText = limbCountVar        
     } else {
-        jobsDone = true
-        console.log("Game Over, you're troll food.")
-        lostLimb.remove()
+        limbCount.innerText = limbCountVar
+        jobsDone = true        
         gameOver()
     }
 }
@@ -174,17 +163,21 @@ function gameOver() {
             resetButton.innerText = "Reset"
             feedbackDiv.append(resetButton)
             resetButton.addEventListener("click", () => {
-                console.log("That sounded like the click of a reset button")
-                titleCard.style.display = "flex"
-                gameCard.style.display = "none"
-                promptDiv.style.display = "none"
-                choicesDiv.style.display = "none"
-                feedbackDiv.style.display = "none"
-                riddlesIndex = 0
-                limbCountVar = 5
-                promptDiv.classList.toggle("lose-text")
+                resetGame()
             })
         }
     }
+}
 
+function resetGame() {
+    console.log("somebody clicked reset")
+    titleCard.style.display = "flex"
+    gameCard.style.display = "none"
+    promptDiv.style.display = "none"
+    choicesDiv.style.display = "none"
+    feedbackDiv.style.display = "none"
+    riddlesIndex = 0
+    limbCountVar = 5
+    limbCount.innerText = 5
+    promptDiv.className = "prompt-div"
 }

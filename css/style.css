@@ -122,6 +122,7 @@ aside {
 
 button {
     margin: 3px;
+    padding: 15px;
 }
 
 .container {
@@ -144,6 +145,7 @@ button {
     font-size: 2rem;
     color: goldenrod;
     font-weight: bold;
+    text-shadow: 2px 2px 4px white;
 }
 
 .lose-text {
