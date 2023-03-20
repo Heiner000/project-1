@@ -32,7 +32,7 @@ const riddles = [
     }
 ]
 let riddlesIndex = 0
-const currentRiddle = riddles[riddlesIndex]
+let currentRiddle = riddles[riddlesIndex]
 
 
 startBtn.addEventListener("click", () => {
@@ -59,38 +59,41 @@ choice4.addEventListener("mousedown", handleChoiceClick)
 
 function handleChoiceClick(e) {
     const userChoice = e.target.innerText;
-    console.log("I heard a choice click")
+    currentRiddle = riddles[riddlesIndex]
+    const currentRiddleAnswer = currentRiddle.answer
+    console.log("you clicked:", userChoice, "answer", currentRiddleAnswer)
     
     // create a checkAnswer function
-    const isCorrect = checkAnswer(userChoice, currentRiddle)
-    console.log("is correct?: ", isCorrect)
+    const isCorrect = checkAnswer(userChoice, currentRiddleAnswer)
     
     console.log("riddlesIndex: ", riddlesIndex)
 }
 
-function checkAnswer(userChoice) {
+function checkAnswer(userChoice, currentRiddleAnswer) {
 
-    if (userChoice === currentRiddle.answer) {
+    if (userChoice === currentRiddleAnswer) {
         console.log("GOOD JOB - YOU GOT IT RIGHT")  // **** I want to make this it's own function
         // need a feedback message
         choicesDiv.style.display = "none"
         const feedbackDiv = document.querySelector("#feedback-div")
         feedbackDiv.style.display = "flex"
         feedbackDiv.innerText = "Good jorb, we'll see if you can do it again..."
+        
         // need to advance to next question
         riddlesIndex++
-
         const nextRiddleBtn = document.createElement("button")
         nextRiddleBtn.id = "next-riddle-btn"
         feedbackDiv.append(nextRiddleBtn)
-        if (riddlesIndex === riddles.length -1) {
+        if (riddlesIndex === riddles.length) {
             // *** need a reset button event listener
             nextRiddleBtn.innerText = "Reset"
         } else {
             // ***
             nextRiddleBtn.innerText = "Next Riddle"
             nextRiddleBtn.addEventListener("click", () => {
+                feedbackDiv.style.display = "none"
                 displayRiddle(riddles[riddlesIndex])
+
             })
         }
         
@@ -106,10 +109,12 @@ function checkAnswer(userChoice) {
 
 function displayRiddle(riddle) {
     promptDiv.innerText = riddle.prompt
-    let choiceBtns = document.querySelectorAll(".choice-btn")
+    choicesDiv.style.display = "grid"
+    let choiceBtns = document.querySelectorAll(".choice-btn") // ***** should this be in its own function as well?
     for (let i = 0; i < riddle.choices.length; i++) {
         choiceBtns[i].innerText = riddle.choices[i]
     }
+    console.log(riddlesIndex, riddle.answer)
 }
 
 // need a function to decrement Hump's limbs on wrong answers.
