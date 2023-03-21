@@ -1,4 +1,2 @@
 CURRENT BUGS
-- Can hit the same wrong answer multiple times
-    - troll phrases should replace themselves
-
+- 

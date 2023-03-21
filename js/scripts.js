@@ -176,6 +176,7 @@ function gameOver() {
             resetButton.innerText = "Reset"
             feedbackDiv.append(resetButton)
             resetButton.addEventListener("click", () => {
+                feedbackDiv.removeChild(resetButton)
                 resetGame()
             })
         }
