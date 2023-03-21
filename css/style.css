@@ -4,10 +4,16 @@
     box-sizing: border-box;
 }
 body {
+    color: white;
+    text-shadow: 3px 3px 6px black;
     height: 100vh;
     width: 100%;
     display: flex;
-    background-color: gray;
+    background-image: url("/images/bridge-pexels-paul-flplf-9954665.jpeg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    /* background-color: gray; */
     align-items: center;
     justify-content: center;
 }
@@ -17,6 +23,10 @@ h1 {
 }
 #troll-text {
     color: yellowgreen;
+}
+
+p {
+    font-size: 1.5rem;
 }
 
 #title-card {
@@ -32,6 +42,7 @@ h1 {
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
+    
 }
 
 #start-btns {
@@ -43,8 +54,7 @@ h1 {
 }
 
 .start-btns {
-    font-size: 18px;
-    width: 10vw;
+    font-size: 25px;
     padding: 5px;
 }
 /* tooltip tutorial: https://www.youtube.com/watch?v=qdiUrCnuCjI */
@@ -103,12 +113,13 @@ h1 {
 
 #prompt-div {
     /* border: aqua 3px dashed; */
-    height: 260px;
+    height: 30vh;
     grid-area: prompt;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    font-size: 2rem;
 }
 
 .btn-grid {
@@ -133,6 +144,7 @@ aside {
 button {
     margin: 3px;
     padding: 15px;
+    font-size: 1.25rem;
 }
 
 .container {
@@ -146,9 +158,10 @@ button {
 }
 
 .troll-phrase {
-    font-size: 1rem;
+    font-size: 2rem;
     color: maroon;
     font-weight: bold;
+    text-shadow: 1px 1px 6px white;
 }
 
 .win-text {
@@ -178,7 +191,7 @@ button {
     width: 25px;
     height: 30px;
     border-radius: 50%;
-    background-color: black;
+    background-color: gold;
     display: block;
     position: absolute;
     top: 10.5px;
@@ -198,7 +211,7 @@ button {
 .torso {
     width: 3px;
     height: 50px;
-    background-color: black;
+    background-color: gold;
     display: block;
     position: absolute;
     top: 40px;
@@ -207,7 +220,7 @@ button {
 .left-arm {
     width: 50px;
     height: 3px;
-    background-color: black;
+    background-color: gold;
     display: block;
     position: absolute;
     top: 43px;
@@ -226,7 +239,7 @@ button {
 .right-arm {
     width: 50px;
     height: 3px;
-    background-color: black;
+    background-color: gold;
     display: block;
     position: absolute;
     top: 43px;
@@ -245,7 +258,7 @@ button {
 .left-leg {
     width: 3px;
     height: 65px;
-    background-color: black;
+    background-color: gold;
     display: block;
     position: absolute;
     top: 87.5px;
@@ -256,7 +269,7 @@ button {
 .right-leg {
     width: 3px;
     height: 65px;
-    background-color: black;
+    background-color: gold;
     display: block;
     position: absolute;
     top: 87.5px;

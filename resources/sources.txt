@@ -1,0 +1,14 @@
+//  SOURCES
+
+background-image:
+https://www.pexels.com/photo/stone-bridge-on-river-9954665/
+
+tooltip tutorial: 
+https://www.youtube.com/watch?v=qdiUrCnuCjI
+
+css stickfigure:
+https://codepen.io/lorayoconnell/pen/pyayOP?editors=1100
+
+pain sound:
+https://youtu.be/1X1K4cL32gk
+

@@ -10,8 +10,7 @@ const limbList = document.querySelector("#limb-list")
 const tooltip = document.querySelector("#tooltip")
 const feedbackDiv = document.querySelector("#feedback-div")
 const limbCount = document.querySelector("#limb-count")
-const limbs = document.querySelectorAll(".stickfigure-limbs")
-
+const painSound = document.querySelector("#pain-sound")
 
 const choice1 = document.querySelector("#choice-1")
 const choice2 = document.querySelector("#choice-2")
@@ -24,10 +23,10 @@ let limbCountVar = 5
 const trollingPhrases = [
     "*CHOMP* Wrong! *nomnomnom*",
     "Nope! *crunchcrunch*",
-    "*crunching and slurrping noises*",
+    "Haha! *crunching and slurrping noises*",
     "Nice Try! I'll take that...",
-    "Just a quick bite",
-    "How about a small piece"
+    "That was terrible!",
+    "Even my granny knows this one!"
 ]
 
 const riddles = [
@@ -89,7 +88,7 @@ function handleChoiceClick(e) {
 
 function checkAnswer(userChoice, currentRiddleAnswer) {
     if (userChoice === currentRiddleAnswer) {
-        console.log("GOOD JOB - YOU GOT IT RIGHT")  // **** I want to make this it's own function
+        // console.log("GOOD JOB - YOU GOT IT RIGHT")  // **** I want to make this it's own function
         // feedback message
         choicesDiv.style.display = "none"
         feedbackDiv.style.display = "flex"
@@ -100,14 +99,17 @@ function checkAnswer(userChoice, currentRiddleAnswer) {
         const nextRiddleBtn = document.createElement("button")
         nextRiddleBtn.id = "next-riddle-btn"
         feedbackDiv.append(nextRiddleBtn)
-        if (riddlesIndex === riddles.length) {
+        if (riddlesIndex === 4) {
+            console.log("generated 103 button")
             jobsDone = true
             gameOver()
             nextRiddleBtn.innerText = "Reset"
             nextRiddleBtn.addEventListener("click", () => {
+                feedbackDiv.removeChild(nextRiddleBtn)
                 resetGame()
             })
         } else {
+            console.log("generated line 109 button")
             nextRiddleBtn.innerText = "Next Riddle"
             nextRiddleBtn.addEventListener("click", () => {
                 feedbackDiv.style.display = "none"
@@ -122,7 +124,7 @@ function checkAnswer(userChoice, currentRiddleAnswer) {
             trollPhrase.className = "troll-phrase"
             trollPhrase.innerText = trollingPhrases[trollingIndex]
             if (promptDiv.lastChild.className === "troll-phrase") {
-                promptDiv.lastChild.innerText = trollPhrase.innerText + `... you've lost a limb`;
+                promptDiv.lastChild.innerText = trollPhrase.innerText;
             } else {
                 promptDiv.appendChild(trollPhrase)
             }
@@ -145,12 +147,33 @@ function displayRiddle(riddle) {
     console.log(riddlesIndex, riddle.answer)
 }
 
+const stickHead = document.querySelector(".head")
+const stickLeftArm = document.querySelector(".left-arm")
+const stickRightArm = document.querySelector(".right-arm")
+const stickLeftLeg = document.querySelector(".left-leg")
+const stickRightLeg = document.querySelector(".right-leg")
+
 // need a function to decrement Hump's limbs on wrong answers.
 function removeLimb() {
     limbCountVar -= 1
-
-    // ************ need a function to color the limbs red one by one
-
+    painSound.play();
+    switch (limbCountVar) {
+        case 4:
+            stickLeftArm.classList.toggle("left-arm");
+            break;
+        case 3:
+            stickRightArm.classList.toggle("right-arm");
+            break;
+        case 2:
+            stickLeftLeg.classList.toggle("left-leg");
+            break;
+        case 1:
+            stickRightLeg.classList.toggle("right-leg");
+            break;
+        default:
+            stickHead.style.animation = "none"
+            break;
+    }
     if (limbCountVar > 0) {
         limbCount.innerText = limbCountVar        
     } else {
@@ -162,6 +185,7 @@ function removeLimb() {
 
 // need gameover screens, both winner & loser
 function gameOver() {
+    console.log("generated gameover button")
     choicesDiv.style.display = "none"
     feedbackDiv.style.display = "flex"
     if (jobsDone = true) {
@@ -194,4 +218,10 @@ function resetGame() {
     limbCountVar = 5
     limbCount.innerText = 5
     promptDiv.className = "prompt-div"
+    stickLeftArm.classList.toggle("left-arm");
+    stickRightArm.classList.toggle("right-arm");
+    stickLeftLeg.classList.toggle("left-leg");
+    stickRightLeg.classList.toggle("right-leg");
+    stickHead.style.animation = "rock 1s alternate infinite ease-in-out"
+
 }
