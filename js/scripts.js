@@ -22,12 +22,17 @@ let jobsDone = false
 let limbCountVar = 5
 
 const trollingPhrases = [
-    "*CHOMP* Wrong! *nomnomnom*",
-    "Nope! *crunchcrunch*",
-    "Haha! *crunching and slurrping noises*",
-    "Nice Try! I'll take that...",
-    "That was terrible!",
-    "Even my granny knows this one!"
+    "*CHOMP* Looks like you'll be hopping away from here on one foot soon enough!",
+    "Maybe your brain is better suited for brewing potions than solving riddles!",
+    "*crunching and slurrping noises*",
+    "I've seen rocks with more wit than you!",
+    "Perhaps you should consider a career in limb donation!",
+    "I'm beginning to think your master sent you here as a sacrifice!",
+    "If I had a gold piece for every wrong answer you gave, I could retire!",
+    "Looks like dinner will be served in bite-sized portions!",
+    "I haven't had a good laugh like this in ages, thanks for entertainment!",
+    "Maybe your fingers will be tastier than your brain!",
+    "I hope you're better at regrowing limbs than you are solving riddles!"
 ]
 
 const riddles = [
@@ -90,7 +95,7 @@ let currentRiddle = riddles[riddlesIndex]
 startBtn.addEventListener("click", () => {
     console.log("That sounded like the click of a start button")
     titleCard.style.display = "none"
-    gameCard.style.display = "grid"
+    gameCard.style.display = "flex"
     promptDiv.style.display = "flex"
     choicesDiv.style.display = "grid"
     displayRiddle(riddles[0])
@@ -106,26 +111,22 @@ function handleChoiceClick(e) {
     currentRiddle = riddles[riddlesIndex]
     const currentRiddleAnswer = currentRiddle.answer
     console.log("you clicked:", userChoice, "answer", currentRiddleAnswer)
-    
     // create a checkAnswer function
-    const isCorrect = checkAnswer(userChoice, currentRiddleAnswer)
-        console.log("riddlesIndex: ", riddlesIndex)
+    checkAnswer(userChoice, currentRiddleAnswer)
 }
 
 function checkAnswer(userChoice, currentRiddleAnswer) {
     if (userChoice === currentRiddleAnswer) {
-        // console.log("GOOD JOB - YOU GOT IT RIGHT")  // **** I want to make this it's own function
         // feedback message
         choicesDiv.style.display = "none"
         feedbackDiv.style.display = "flex"
-        feedbackDiv.innerText = "Good jorb, we'll see if you can do it again..."
-        
+        feedbackDiv.innerText = "Gud jorb, we'll see if you can do it again..."
         // advance to next question
         riddlesIndex++
         const nextRiddleBtn = document.createElement("button")
         nextRiddleBtn.id = "next-riddle-btn"
         feedbackDiv.append(nextRiddleBtn)
-        if (riddleCount === 3) {
+        if (riddleCount === 5) {
             jobsDone = true
             gameOver()
             nextRiddleBtn.innerText = "Reset"
@@ -134,14 +135,12 @@ function checkAnswer(userChoice, currentRiddleAnswer) {
                 resetGame()
             })
         } else {
-            console.log("generated line 109 button")
             nextRiddleBtn.innerText = "Next Riddle"
             nextRiddleBtn.addEventListener("click", () => {
                 feedbackDiv.style.display = "none"
                 displayRiddle(riddles[riddlesIndex])
             })
         }
-        
     } else {
         if (limbCountVar > 0) {
             const trollingIndex = Math.floor(Math.random() * trollingPhrases.length)
@@ -153,7 +152,6 @@ function checkAnswer(userChoice, currentRiddleAnswer) {
             } else {
                 promptDiv.appendChild(trollPhrase)
             }
-            // console.log("OOPS, LoSt A LiMb!!")
             removeLimb()
         } else {
             jobsDone = true
@@ -186,16 +184,16 @@ function removeLimb() {
     painAudio.play();
     switch (limbCountVar) {
         case 4:
-            stickLeftArm.classList.toggle("left-arm");
+            stickLeftArm.classList.remove("left-arm");
             break;
         case 3:
-            stickRightArm.classList.toggle("right-arm");
+            stickRightArm.classList.remove("right-arm");
             break;
         case 2:
-            stickLeftLeg.classList.toggle("left-leg");
+            stickLeftLeg.classList.remove("left-leg");
             break;
         case 1:
-            stickRightLeg.classList.toggle("right-leg");
+            stickRightLeg.classList.remove("right-leg");
             break;
         default:
             stickHead.style.animation = "none"
@@ -217,7 +215,6 @@ function gameOver() {
     feedbackDiv.style.display = "flex"
     if (jobsDone = true) {
         if (limbCountVar > 0) {
-            promptDiv.style.classList
             promptDiv.innerText = "You won! You paid the Troll's Toll with change leftover- time to celebrate!"
             promptDiv.classList.toggle("win-text")
         } else {
@@ -245,10 +242,10 @@ function resetGame() {
     limbCountVar = 5
     limbCount.innerText = 5
     promptDiv.className = "prompt-div"
-    stickLeftArm.classList.toggle("left-arm");
-    stickRightArm.classList.toggle("right-arm");
-    stickLeftLeg.classList.toggle("left-leg");
-    stickRightLeg.classList.toggle("right-leg");
+    stickLeftArm.className = "left-arm";
+    stickRightArm.className = "right-arm";
+    stickLeftLeg.className = "left-leg";
+    stickRightLeg.className = "right-leg";
     stickHead.style.animation = "rock 1s alternate infinite ease-in-out"
 
 }
