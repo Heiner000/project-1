@@ -10,7 +10,8 @@ const limbList = document.querySelector("#limb-list")
 const tooltip = document.querySelector("#tooltip")
 const feedbackDiv = document.querySelector("#feedback-div")
 const limbCount = document.querySelector("#limb-count")
-const painSound = document.querySelector("#pain-sound")
+const painAudio = new Audio()
+    painAudio.src = document.querySelector("#pain-sound").src
 
 const choice1 = document.querySelector("#choice-1")
 const choice2 = document.querySelector("#choice-2")
@@ -46,16 +47,42 @@ const riddles = [
         answer: "Breath"
     },
     {
-        prompt: "I have cities, but no houses. I have mountains, but no trees. I have water, but no fish. What am I?",
-        choices: ["Skyline","Map","Desert","Island"],
+        prompt: "I have towns without people, forests without trees, and rivers without water. What am I?",
+        choices: ["Skyline","Map","Desert","Dream"],
         answer: "Map"
     },
     {
         prompt: "You see a boat filled with people. It has not sunk, but when you look again, you don't see a single person on the boat. Why?",
         choices: ["They went below deck","They jumped overboard","They are all married","Sharks."],
         answer: "They are all married"
-    }
+    },
+    {
+        prompt: "Your mother is an orc. Your father is a dwarf. What are you?",
+        choices: ["Orc with Dwarfism","A New Hybrid","Half-Elf","A Dork"],
+        answer: "A Dork"
+    },
+    {
+        prompt: "They call me the king. I have the eyes, hiss, and fangs of a snake, but have no scales or venom. What am I?",
+        choices: ["Lizard","Naga","Tarantula","Cat"],
+        answer: "Cat"
+    },
+    {
+        prompt: "I have a tail, and a head, but no legs. I am probably with you now. What am I?",
+        choices: ["A Comet","A Snake","A Merfolk","A Coin"],
+        answer: "A Coin"
+    },
+    {
+        prompt: "You do not need a 'DO NOT ENTER' sign for this room.",
+        choices: ["Dungeon","Privy","Crypt","Mushroom"],
+        answer: "Mushroom"
+    },
+    {
+        prompt: "I am an eye set in a blue face. My gaze feeds the world. If I go blind so does the world.",
+        choices: ["Blue Eyes White Dragon","Eye of Sauron","Palantir","The Sun"],
+        answer: "The Sun"
+    },
 ]
+let riddleCount = 0
 let riddlesIndex = 0
 let currentRiddle = riddles[riddlesIndex]
 
@@ -82,8 +109,7 @@ function handleChoiceClick(e) {
     
     // create a checkAnswer function
     const isCorrect = checkAnswer(userChoice, currentRiddleAnswer)
-    
-    console.log("riddlesIndex: ", riddlesIndex)
+        console.log("riddlesIndex: ", riddlesIndex)
 }
 
 function checkAnswer(userChoice, currentRiddleAnswer) {
@@ -99,8 +125,7 @@ function checkAnswer(userChoice, currentRiddleAnswer) {
         const nextRiddleBtn = document.createElement("button")
         nextRiddleBtn.id = "next-riddle-btn"
         feedbackDiv.append(nextRiddleBtn)
-        if (riddlesIndex === 4) {
-            console.log("generated 103 button")
+        if (riddleCount === 3) {
             jobsDone = true
             gameOver()
             nextRiddleBtn.innerText = "Reset"
@@ -138,13 +163,14 @@ function checkAnswer(userChoice, currentRiddleAnswer) {
 }
 
 function displayRiddle(riddle) {
+    riddleCount++
     promptDiv.innerText = riddle.prompt
     choicesDiv.style.display = "grid"
-    let choiceBtns = document.querySelectorAll(".choice-btn") // ***** should this be in its own function as well?
-    for (let i = 0; i < riddle.choices.length; i++) {
-        choiceBtns[i].innerText = riddle.choices[i]
-    }
-    console.log(riddlesIndex, riddle.answer)
+    let choiceBtns = document.querySelectorAll(".choice-btn")
+    const randomizedChoices = riddle.choices.sort(() => Math.random() - 0.5)
+    randomizedChoices.forEach((choice, i) => {
+        choiceBtns[i].innerText = choice
+    })
 }
 
 const stickHead = document.querySelector(".head")
@@ -156,7 +182,8 @@ const stickRightLeg = document.querySelector(".right-leg")
 // need a function to decrement Hump's limbs on wrong answers.
 function removeLimb() {
     limbCountVar -= 1
-    painSound.play();
+    painAudio.volume = 0.02;
+    painAudio.play();
     switch (limbCountVar) {
         case 4:
             stickLeftArm.classList.toggle("left-arm");
