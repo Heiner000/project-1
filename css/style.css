@@ -12,6 +12,13 @@ body {
     justify-content: center;
 }
 
+h1 {
+    font-size: 4rem;
+}
+#troll-text {
+    color: yellowgreen;
+}
+
 #title-card {
     display: flex;
     /* border: black 5px dashed; */
@@ -24,7 +31,7 @@ body {
     transform: translate(-50%, -50%);
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
 }
 
 #start-btns {
@@ -118,6 +125,9 @@ body {
 
 aside {
     grid-area: sidebar;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
 }
 
 button {
@@ -145,7 +155,7 @@ button {
     font-size: 2rem;
     color: goldenrod;
     font-weight: bold;
-    text-shadow: 2px 2px 4px white;
+    text-shadow: 2px 2px 4px black;
 }
 
 .lose-text {
@@ -153,4 +163,104 @@ button {
     color: greenyellow;
     font-weight: bold;
     text-shadow: 2px 2px 5px red;
+}
+
+/* source: https://codepen.io/lorayoconnell/pen/pyayOP?editors=1100 */
+.stick-figure {
+    margin-top: 50px;
+    width: 145px;
+    height: 155px;
+    display: block;
+    position: relative;
+    /* border: 2px hotpink solid; */
+}
+.head {
+    width: 25px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: black;
+    display: block;
+    position: absolute;
+    top: 10.5px;
+    left: 66.5px;
+    z-index: 1;
+    animation: rock 1s alternate infinite ease-in-out;
+    transform-origin: center bottom;
+}
+@keyframes rock {
+    0% {
+        transform: rotate(-10deg);
+    }
+    100% {
+        transform: rotate(10deg);
+    }
+}
+.torso {
+    width: 3px;
+    height: 50px;
+    background-color: black;
+    display: block;
+    position: absolute;
+    top: 40px;
+    left: 78px;
+}
+.left-arm {
+    width: 50px;
+    height: 3px;
+    background-color: black;
+    display: block;
+    position: absolute;
+    top: 43px;
+    left: 28.5px;
+    animation: wave 1s alternate infinite ease-in-out;
+    transform-origin: 100%;
+}
+@keyframes wave {
+    0% {
+        transform: rotate(-20deg);
+    }
+    100% {
+        transform: rotate(40deg);
+    }
+}
+.right-arm {
+    width: 50px;
+    height: 3px;
+    background-color: black;
+    display: block;
+    position: absolute;
+    top: 43px;
+    left: 80.5px;
+    animation: wave2 1s alternate infinite ease-in-out;
+    transform-origin: 0%;
+}
+@keyframes wave2 {
+    0% {
+        transform: rotate(20deg);
+    }
+    100% {
+        transform: rotate(-40deg);
+    }
+}
+.left-leg {
+    width: 3px;
+    height: 65px;
+    background-color: black;
+    display: block;
+    position: absolute;
+    top: 87.5px;
+    left: 77.5px;
+    transform: rotate(20deg);
+    transform-origin: top;
+}
+.right-leg {
+    width: 3px;
+    height: 65px;
+    background-color: black;
+    display: block;
+    position: absolute;
+    top: 87.5px;
+    left: 77.5px;
+    transform: rotate(-20deg);
+    transform-origin: top;
 }

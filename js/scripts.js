@@ -10,6 +10,7 @@ const limbList = document.querySelector("#limb-list")
 const tooltip = document.querySelector("#tooltip")
 const feedbackDiv = document.querySelector("#feedback-div")
 const limbCount = document.querySelector("#limb-count")
+const limbs = document.querySelectorAll(".stickfigure-limbs")
 
 
 const choice1 = document.querySelector("#choice-1")
@@ -44,6 +45,16 @@ const riddles = [
         prompt: "I am light as a feather, yet the strongest man cannot hold me for much more than a moment. What am I?",
         choices: ["Thought","Time","Idea","Breath"],
         answer: "Breath"
+    },
+    {
+        prompt: "I have cities, but no houses. I have mountains, but no trees. I have water, but no fish. What am I?",
+        choices: ["Skyline","Map","Desert","Island"],
+        answer: "Map"
+    },
+    {
+        prompt: "You see a boat filled with people. It has not sunk, but when you look again, you don't see a single person on the boat. Why?",
+        choices: ["They went below deck","They jumped overboard","They are all married","Sharks."],
+        answer: "They are all married"
     }
 ]
 let riddlesIndex = 0
@@ -79,12 +90,12 @@ function handleChoiceClick(e) {
 function checkAnswer(userChoice, currentRiddleAnswer) {
     if (userChoice === currentRiddleAnswer) {
         console.log("GOOD JOB - YOU GOT IT RIGHT")  // **** I want to make this it's own function
-        // need a feedback message
+        // feedback message
         choicesDiv.style.display = "none"
         feedbackDiv.style.display = "flex"
         feedbackDiv.innerText = "Good jorb, we'll see if you can do it again..."
         
-        // need to advance to next question
+        // advance to next question
         riddlesIndex++
         const nextRiddleBtn = document.createElement("button")
         nextRiddleBtn.id = "next-riddle-btn"
@@ -92,7 +103,6 @@ function checkAnswer(userChoice, currentRiddleAnswer) {
         if (riddlesIndex === riddles.length) {
             jobsDone = true
             gameOver()
-            // *** need a reset button function *********
             nextRiddleBtn.innerText = "Reset"
             nextRiddleBtn.addEventListener("click", () => {
                 resetGame()
@@ -138,6 +148,9 @@ function displayRiddle(riddle) {
 // need a function to decrement Hump's limbs on wrong answers.
 function removeLimb() {
     limbCountVar -= 1
+
+    // ************ need a function to color the limbs red one by one
+
     if (limbCountVar > 0) {
         limbCount.innerText = limbCountVar        
     } else {
