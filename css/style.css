@@ -98,36 +98,27 @@ p {
 #game-card {
     /* border: blue 5px dashed; */
     padding: 20px;
-    height: 75vh;
-    width: 75vw;
     position: relative;
     top: 5rem;
     display: 0;
     flex-direction: row;
-    /* grid-template-columns: 1fr 5fr;
-    grid-template-rows: 2fr 1fr 1fr;
-    grid-template-areas: 
-    "sidebar prompt"
-    "sidebar prompt"
-    "btns btns"; */
-    
+       
 }
 
 #prompt-div {
     /* border: aqua 3px dashed; */
     height: 30vh;
-    grid-area: prompt;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     font-size: 2rem;
+    margin: 0 0 15px 0;
 }
 
 .btn-grid {
     /* border: red 5px dotted; */
-    height: 250px;
-    grid-area: btns;
+    height: 30vh;
     display: flex;
 }
 
@@ -141,7 +132,6 @@ p {
 }
 
 aside {
-    grid-area: sidebar;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -282,4 +272,29 @@ button {
     left: 77.5px;
     transform: rotate(-20deg);
     transform-origin: top;
+}
+
+@media (max-width: 900px) {
+    #prompt-div, #feedback-div, #choices-div {
+        font-size: 20px;
+    }
+    #start-btns {
+        width: 80vw;
+    }
+    .troll-phrase {
+        font-size: 15px;
+    }
+    button {
+        font-size: 14px;
+        padding: 5px
+    }
+    #tooltip-text {
+        font-size: 16px;
+        top: -30%;
+    }
+    #tooltip:hover #tooltip-text {
+        top: -600%;
+        visibility: visible;
+        opacity: 1;
+    }
 }

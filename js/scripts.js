@@ -139,6 +139,7 @@ function checkAnswer(userChoice, currentRiddleAnswer) {
             nextRiddleBtn.addEventListener("click", () => {
                 feedbackDiv.style.display = "none"
                 displayRiddle(riddles[riddlesIndex])
+                feedbackDiv.removeChild(nextRiddleBtn)
             })
         }
     } else {
