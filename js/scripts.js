@@ -12,6 +12,12 @@ const feedbackDiv = document.querySelector("#feedback-div")
 const limbCount = document.querySelector("#limb-count")
 const painAudio = new Audio()
     painAudio.src = document.querySelector("#pain-sound").src
+const backgroundMusic = new Audio()
+    backgroundMusic.src = document.querySelector("#elevator-music").src
+const winAudio = new Audio()
+    winAudio.src = document.querySelector("#victory-music").src
+const failAudio = new Audio()
+    failAudio.src = document.querySelector("#fail-music").src
 
 const choice1 = document.querySelector("#choice-1")
 const choice2 = document.querySelector("#choice-2")
@@ -98,6 +104,8 @@ startBtn.addEventListener("click", () => {
     gameCard.style.display = "flex"
     promptDiv.style.display = "flex"
     choicesDiv.style.display = "grid"
+    backgroundMusic.volume = 0.03
+    backgroundMusic.play()
     displayRiddle(riddles[0])
 })
 
@@ -211,14 +219,20 @@ function removeLimb() {
 
 // need gameover screens, both winner & loser
 function gameOver() {
-    console.log("generated gameover button")
+    backgroundMusic.pause()
+    backgroundMusic.currentTime = 0
     choicesDiv.style.display = "none"
     feedbackDiv.style.display = "flex"
     if (jobsDone = true) {
         if (limbCountVar > 0) {
+            winAudio.volume = .05
+            winAudio.play()
             promptDiv.innerText = "You won! You paid the Troll's Toll with change leftover- time to celebrate!"
             promptDiv.classList.toggle("win-text")
+            
         } else {
+            failAudio.volume = .05
+            failAudio.play()
             promptDiv.innerText = "You lose! The Bridge Troll's Toll cost you everything. Good luck with your next life."
             promptDiv.classList.toggle("lose-text")
             const resetButton = document.createElement("button")
@@ -248,5 +262,8 @@ function resetGame() {
     stickLeftLeg.className = "left-leg";
     stickRightLeg.className = "right-leg";
     stickHead.style.animation = "rock 1s alternate infinite ease-in-out"
-
+    winAudio.pause()
+    winAudio.currentTime = 0
+    failAudio.pause()
+    failAudio.currentTime = 0
 }
