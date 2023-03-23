@@ -174,7 +174,10 @@ function displayRiddle(riddle) {
     promptDiv.innerText = riddle.prompt
     choicesDiv.style.display = "grid"
     let choiceBtns = document.querySelectorAll(".choice-btn")
+    // console.log(riddle.choices)
+    //  use the sort method with a random number for comparison
     const randomizedChoices = riddle.choices.sort(() => Math.random() - 0.5)
+    // console.log(randomizedChoices)
     randomizedChoices.forEach((choice, i) => {
         choiceBtns[i].innerText = choice
     })
@@ -231,7 +234,7 @@ function gameOver() {
             promptDiv.classList.toggle("win-text")
             
         } else {
-            failAudio.volume = .05
+            failAudio.volume = .01
             failAudio.play()
             promptDiv.innerText = "You lose! The Bridge Troll's Toll cost you everything. Good luck with your next life."
             promptDiv.classList.toggle("lose-text")

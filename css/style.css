@@ -9,12 +9,10 @@ body {
     height: 100vh;
     width: 100%;
     display: flex;
-    background-image: url("/images/bridge-pexels-paul-flplf-9954665.jpeg");
+    background-image: url(./stone-bridge-background.jpeg);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
-    /* background-color: gray; */
-    /* align-items: center; */
     justify-content: space-around;
 }
 
