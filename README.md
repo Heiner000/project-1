@@ -1,4 +1,6 @@
 # Project 1 - The Bridge Troll's Toll - Text-Based Adventure (working title)
+Click here to play the game:
+https://heiner000.github.io/project-1/
 
 ## The Story so Far:
 
@@ -39,3 +41,5 @@ In this text-based adventure game Hump must answer the troll's riddles correctly
 ## Potential Roadblocks
 + focus on 'hangman aspect'
 + don't get stuck in busy work until MVP is finished
+
+https://heiner000.github.io/project-1/

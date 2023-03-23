@@ -134,7 +134,7 @@ function checkAnswer(userChoice, currentRiddleAnswer) {
         const nextRiddleBtn = document.createElement("button")
         nextRiddleBtn.id = "next-riddle-btn"
         feedbackDiv.append(nextRiddleBtn)
-        if (riddleCount === 5) {
+        if (riddleCount === 9) {
             jobsDone = true
             gameOver()
             nextRiddleBtn.innerText = "Reset"
