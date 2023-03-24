@@ -1,4 +1,4 @@
-# Project 1 - The Bridge Troll's Toll - Text-Based Adventure (working title)
+# Project 1 - The Bridge Troll's Toll - Riddle Game
 Click here to play the game:
 https://heiner000.github.io/project-1/
 
@@ -11,8 +11,8 @@ The bridge Troll's **toll** must be paid, and he will only be satisfied with **b
 
 In this text-based adventure game Hump must answer the troll's riddles correctly to cross the bridge, otherwise he may take a limb. Lose more than 3 limbs and he won't make a very good wizard's apprentice anymore. Answer enough riddles correctly to bring back the required herbs or he'll lose his apprenticeship. 
 
-![Wireframe](./images/Wireframe.png)
-![Imgur](https://i.imgur.com/lp4xALhb.png)
+![Imgur](https://i.imgur.com/lp4xALh.png)
+![Imgur](https://i.imgur.com/68IjacZ.png)
 
 
 ## Tech Stack:
