@@ -49,7 +49,30 @@ The other difficulty that I ran into was as I was building out the actions that 
 
 That being said, I think I now have a greater appreciation for breaking the problem up into smaller bits and creating as many helper functions as it takes to allow the code to be more flexible when introducing new functions.
 
+## Sources
 
+background-image:
+https://www.pexels.com/photo/stone-bridge-on-river-9954665/
 
+tooltip tutorial: 
+https://www.youtube.com/watch?v=qdiUrCnuCjI
+
+css stickfigure:
+https://codepen.io/lorayoconnell/pen/pyayOP?editors=1100
+
+Riddles:
+https://www.thegamer.com/dungeons-and-dragons-riddles-dm-use-challenge/#quot-i-have-a-tail-and-a-head-but-no-legs-i-am-probably-with-you-now-quot
+
+pain sound:
+https://youtu.be/1X1K4cL32gk
+
+victory sound:
+https://youtu.be/WzxCMbWwEeQ
+
+background music:
+https://youtu.be/1f-NQAgm-YM
+
+loss sound:
+https://youtu.be/CkmALlC-3d0
 
 https://heiner000.github.io/project-1/
