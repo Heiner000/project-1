@@ -143,7 +143,7 @@ function checkAnswer(userChoice, currentRiddleAnswer) {
         nextRiddleBtn.id = "next-riddle-btn"
         feedbackDiv.append(nextRiddleBtn)
         // this riddleCount conditional changes length of game
-        if (riddleCount === 9) { // end of game
+        if (riddleCount === 3) { // end of game
             jobsDone = true
             gameOver()
             // change button to reset game instead of advance question
