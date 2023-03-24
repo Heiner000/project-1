@@ -4,8 +4,8 @@ https://heiner000.github.io/project-1/
 
 ## The Story so Far:
 
-Hump is an apprentice to Master Wizard Timothy. Master Timothy has been commissioned by his monarch to brew a special potion, however he lacks the needed ingredients.
-There is an herbalist across the bridge who can grow the specific reagents for the brew, but it will take time. Master Timothy will send Hump to fetch the ingredients when they are ready, but each time Hump crosses the bridge he will have to pay the bridge Troll's toll.
+Humphrey is an apprentice to Master Wizard Timothy. Master Timothy has been commissioned by his monarch to brew a special potion, however he lacks the needed ingredients.
+There is an herbalist across the bridge who can grow the specific reagents for the brew, but it will take time. Master Timothy will send Hump to fetch the ingredients when they are ready, but each time Humphrey crosses the bridge he will have to pay the bridge Troll's toll.
 
 The bridge Troll's **toll** must be paid, and he will only be satisfied with **blood and bones!** Unless you can answer his increasingly difficult series of **riddles**, then perhaps he'll let you by this time without a bite.
 
