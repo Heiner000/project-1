@@ -36,8 +36,6 @@ In this text-based adventure game Hump must answer the troll's riddles correctly
 + Randomly populate riddle prompt with riddles pulled from 3 different arrays rated on riddle difficulty
 + Include hard mode where instead of 4 buttons, there's just a form for user's input to answer riddles
 + Wizard difficulty mode: form/no buttons + only pull riddles from hardest array
-+ Have additional prompts that allow Hump opportunities to gain or lose gold
-+ Enough gold could purchase a distraction allowing Hump to skip a riddle
 + Possible sprites or additional styling
 
 ## Potential Roadblocks
@@ -45,6 +43,13 @@ In this text-based adventure game Hump must answer the troll's riddles correctly
 + don't get stuck in busy work until MVP is finished
 
 ## Post-Project Reflection
+I wanted more practice using the JavaScript DOM to give more dynamic function to a webpage. I had an idea of the framework I needed to do everything, but as I started to build out the dom I started to become more and more lost and confused inside my own code. This reminded me of the important of comments, especially when I left something temporarily undone as I finished out something else.
+
+The other difficulty that I ran into was as I was building out the actions that needed to happen with each click, they quickly turned out to be much larger code blocks than I had anticipated. So some things were turned into helper functions. Which added to the difficulty of expanding the functionality. When I started working on some stretch goals, I ran into the issue of my current code not being super adaptable and I would have to almost completely rewrite it to incorporate my stretch goals.
+
+That being said, I think I now have a greater appreciation for breaking the problem up into smaller bits and creating as many helper functions as it takes to allow the code to be more flexible when introducing new functions.
+
+
 
 
 https://heiner000.github.io/project-1/

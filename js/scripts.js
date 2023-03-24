@@ -99,12 +99,12 @@ let currentRiddle = riddles[riddlesIndex]
 
 
 startBtn.addEventListener("click", () => {
-    console.log("That sounded like the click of a start button")
+    // console.log("That sounded like the click of a start button")
     titleCard.style.display = "none"
     gameCard.style.display = "flex"
     promptDiv.style.display = "flex"
     choicesDiv.style.display = "grid"
-    backgroundMusic.volume = 0.03
+    backgroundMusic.volume = 0.045
     backgroundMusic.play()
     displayRiddle(riddles[0])
 })
@@ -118,7 +118,7 @@ function handleChoiceClick(e) {
     const userChoice = e.target.innerText;
     currentRiddle = riddles[riddlesIndex]
     const currentRiddleAnswer = currentRiddle.answer
-    console.log("you clicked:", userChoice, "answer", currentRiddleAnswer)
+    // console.log("you clicked:", userChoice, "answer", currentRiddleAnswer)
     // create a checkAnswer function
     checkAnswer(userChoice, currentRiddleAnswer)
 }
@@ -192,7 +192,7 @@ const stickRightLeg = document.querySelector(".right-leg")
 // need a function to decrement Hump's limbs on wrong answers.
 function removeLimb() {
     limbCountVar -= 1
-    painAudio.volume = 0.02;
+    painAudio.volume = 0.035;
     painAudio.play();
     switch (limbCountVar) {
         case 4:
@@ -228,13 +228,13 @@ function gameOver() {
     feedbackDiv.style.display = "flex"
     if (jobsDone = true) {
         if (limbCountVar > 0) {
-            winAudio.volume = .05
+            winAudio.volume = .075
             winAudio.play()
             promptDiv.innerText = "You won! You paid the Troll's Toll with change leftover- time to celebrate!"
             promptDiv.classList.toggle("win-text")
             
         } else {
-            failAudio.volume = .01
+            failAudio.volume = .025
             failAudio.play()
             promptDiv.innerText = "You lose! The Bridge Troll's Toll cost you everything. Good luck with your next life."
             promptDiv.classList.toggle("lose-text")
