@@ -93,6 +93,56 @@ const riddles = [
         choices: ["Blue Eyes White Dragon","Eye of Sauron","Palantir","The Sun"],
         answer: "The Sun"
     },
+    {
+        prompt: "I speak without a mouth and hear without ears. I have no body, but I come alive with the wind. What am I?",
+        choices: ["An Echo", "A Ghost", "A Whistle", "Thunder"],
+        answer: "An Echo"
+    },
+    {
+        prompt: "I am taken from a mine, and shut up in a wooden case, from which I am never released, and yet I am used by almost every person. What am I?",
+        choices: ["Coal", "A Diamond", "Gold", "Pencil Lead"],
+        answer: "Pencil Lead"
+    },
+    {
+        prompt: "What has roots as nobody sees, is taller than trees, up, up it goes, and yet never grows?",
+        choices: ["A Cloud", "A Mountain", "A Volcano", "A Beanstalk"],
+        answer: "A Mountain"
+    },
+    {
+        prompt: "The more you take, the more you leave behind. What am I?",
+        choices: ["Footsteps", "Time", "Memories", "Sand"],
+        answer: "Footsteps"
+    },
+    {
+        prompt: "I am taken from a specific type of tree. People use me to send secret messages. What am I?",
+        choices: ["Bark", "A Leaf", "A Seed", "Ink"],
+        answer: "Ink"
+    },
+    {
+        prompt: "I am filled with keys but can't open locks. What am I?",
+        choices: ["A Treasure Chest", "A Piano", "A Keyboard", "A Keyring"],
+        answer: "A Keyboard"
+    },
+    {
+        prompt: "What has a heart that doesn't beat?",
+        choices: ["A Stone", "A Clock", "A Tree", "An Artichoke"],
+        answer: "An Artichoke"
+    },
+    {
+        prompt: "I am always in front of you but can never be seen. What am I?",
+        choices: ["The Future", "A Mirror", "A Reflection", "A Shadow"],
+        answer: "The Future"
+    },
+    {
+        prompt: "What comes once in a minute, twice in a moment, but never in a thousand years?",
+        choices: ["A Comet", "An Eclipse", "The Letter M", "A Leap Year"],
+        answer: "The Letter M"
+    },
+    {
+        prompt: "I am a word of letters three, add two and fewer there will be. What am I?",
+        choices: ["Few", "One", "Trio", "Ten"],
+        answer: "Few"
+    }
 ]
 // initialize arrays from beginning & keep riddleCount for win function
 let riddleCount = 0
@@ -109,6 +159,8 @@ startBtn.addEventListener("click", () => {
     // play background music
     backgroundMusic.volume = 0.045
     backgroundMusic.play()
+    // shuffle riddles array
+    shuffle(riddles)
     // display first riddle
     displayRiddle(riddles[0])
 })
@@ -118,6 +170,20 @@ choice1.addEventListener("mousedown", handleChoiceClick)
 choice2.addEventListener("mousedown", handleChoiceClick)
 choice3.addEventListener("mousedown", handleChoiceClick)
 choice4.addEventListener("mousedown", handleChoiceClick)
+
+// function to shuffle an array
+function shuffle(array) {
+    let currentIndex = array.length, randomIndex
+
+    while (currentIndex !== 0) {
+        randomIndex = Math.floor(Math.random() * currentIndex)
+        currentIndex--
+
+        [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]]
+    }
+
+    return array
+}
 
 // function for each click
 function handleChoiceClick(e) {
@@ -189,9 +255,14 @@ function displayRiddle(riddle) {
     promptDiv.innerText = riddle.prompt
     choicesDiv.style.display = "grid"
     let choiceBtns = document.querySelectorAll(".choice-btn")
-    // console.log(riddle.choices)
+
     //  use the sort method w/ random number between -.5 & .5 to determine order
-    const randomizedChoices = riddle.choices.sort(() => Math.random() - 0.5)
+    const randomizedChoices = []
+    const originalChoices = [...riddle.choices]
+    while (originalChoices.length > 0) {
+        const randomIndex = Math.floor(Math.random() * originalChoices.length)
+        randomizedChoices.push(originalChoices.splice(randomIndex, 1)[0])
+    }
     // console.log(randomizedChoices)
     // assign each answer to a button
     randomizedChoices.forEach((choice, i) => {
