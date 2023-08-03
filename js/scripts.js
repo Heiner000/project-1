@@ -151,6 +151,14 @@ let currentRiddle = riddles[riddlesIndex]
 
 
 startBtn.addEventListener("click", () => {
+    initGame()
+    // shuffle riddles array
+    shuffle(riddles)
+    // display first riddle
+    displayRiddle(riddles[0])
+})
+
+function initGame() {
     // hide title card & display the others
     titleCard.style.display = "none"
     gameCard.style.display = "flex"
@@ -159,11 +167,26 @@ startBtn.addEventListener("click", () => {
     // play background music
     backgroundMusic.volume = 0.045
     backgroundMusic.play()
-    // shuffle riddles array
-    shuffle(riddles)
-    // display first riddle
-    displayRiddle(riddles[0])
-})
+}
+
+function renderRiddle(riddle) {
+    promptDiv.innerText = riddle.prompt;
+
+  const randomizedChoices = [];
+
+  const originalChoices = [...riddle.choices];
+
+  while (originalChoices.length > 0) {
+    const randomIndex = Math.floor(Math.random() * originalChoices.length);
+    randomizedChoices.push(originalChoices.splice(randomIndex, 1)[0]);
+  }
+
+  let choiceBtns = document.querySelectorAll(".choice-btn")
+
+  randomizedChoices.forEach((choice, i) => {
+    choiceBtns[i].innerText = choice;
+  });
+}
 
 // listeners for each answer button click
 choice1.addEventListener("mousedown", handleChoiceClick)
@@ -252,22 +275,27 @@ function checkAnswer(userChoice, currentRiddleAnswer) {
 // function to display riddle from 
 function displayRiddle(riddle) {
     riddleCount++
-    promptDiv.innerText = riddle.prompt
+
+    // promptDiv.innerText = riddle.prompt
+
+    renderRiddle(riddle)
+
     choicesDiv.style.display = "grid"
+
     let choiceBtns = document.querySelectorAll(".choice-btn")
 
-    //  use the sort method w/ random number between -.5 & .5 to determine order
-    const randomizedChoices = []
-    const originalChoices = [...riddle.choices]
-    while (originalChoices.length > 0) {
-        const randomIndex = Math.floor(Math.random() * originalChoices.length)
-        randomizedChoices.push(originalChoices.splice(randomIndex, 1)[0])
-    }
-    // console.log(randomizedChoices)
-    // assign each answer to a button
-    randomizedChoices.forEach((choice, i) => {
-        choiceBtns[i].innerText = choice
-    })
+    // //  use the sort method w/ random number between -.5 & .5 to determine order
+    // const randomizedChoices = []
+    // const originalChoices = [...riddle.choices]
+    // while (originalChoices.length > 0) {
+    //     const randomIndex = Math.floor(Math.random() * originalChoices.length)
+    //     randomizedChoices.push(originalChoices.splice(randomIndex, 1)[0])
+    // }
+    // // console.log(randomizedChoices)
+    // // assign each answer to a button
+    // randomizedChoices.forEach((choice, i) => {
+    //     choiceBtns[i].innerText = choice
+    // })
 }
 // stickfigure divs
 const stickHead = document.querySelector(".head")
