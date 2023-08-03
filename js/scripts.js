@@ -214,6 +214,34 @@ function endGame() {
     }
 }
 
+function resetGame() {
+    // Reset display
+    titleCard.style.display = "flex"
+    gameCard.style.display = "none"
+    promptDiv.style.display = "none"
+    choicesDiv.style.display = "none"
+    feedbackDiv.style.display = "none"
+
+    // Reset state
+    riddlesIndex = 0
+    limbCountVar = 5
+    limbCount.innerText = 5
+    promptDiv.className = "prompt-div"
+
+    // Reset stickfigure
+    stickLeftArm.className = "left-arm";
+    stickRightArm.className = "right-arm";
+    stickLeftLeg.className = "left-leg";
+    stickRightLeg.className = "right-leg";
+    stickHead.style.animation = "rock 1s alternate infinite ease-in-out"
+
+    // Reset audio
+    winAudio.pause()
+    winAudio.currentTime = 0
+    failAudio.pause()
+    failAudio.currentTime = 0
+}
+
 // listeners for each answer button click
 choice1.addEventListener("mousedown", handleChoiceClick)
 choice2.addEventListener("mousedown", handleChoiceClick)
@@ -370,7 +398,7 @@ function gameOver() {
     feedbackDiv.style.display = "flex"
 
     endGame();
-    
+
     // if (jobsDone = true) {
     //     if (limbCountVar > 0) {
     //         winAudio.volume = .075
@@ -392,26 +420,4 @@ function gameOver() {
     //         })
     //     }
     // }
-}
-// reset everything
-function resetGame() {
-    console.log("somebody clicked reset")
-    titleCard.style.display = "flex"
-    gameCard.style.display = "none"
-    promptDiv.style.display = "none"
-    choicesDiv.style.display = "none"
-    feedbackDiv.style.display = "none"
-    riddlesIndex = 0
-    limbCountVar = 5
-    limbCount.innerText = 5
-    promptDiv.className = "prompt-div"
-    stickLeftArm.className = "left-arm";
-    stickRightArm.className = "right-arm";
-    stickLeftLeg.className = "left-leg";
-    stickRightLeg.className = "right-leg";
-    stickHead.style.animation = "rock 1s alternate infinite ease-in-out"
-    winAudio.pause()
-    winAudio.currentTime = 0
-    failAudio.pause()
-    failAudio.currentTime = 0
 }
