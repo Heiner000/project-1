@@ -188,6 +188,32 @@ function renderRiddle(riddle) {
   });
 }
 
+function endGame() {
+    if (jobsDone) {
+        if (limbCountVar > 0) {
+            winAudio.volume = .075
+            winAudio.play()
+            promptDiv.innerText = "You won!!"
+            promptDiv.classList.toggle("win-text")
+        } else {
+            failAudio.volume = .025
+            failAudio.play()
+            promptDiv.innerText = "You lose! The Bridge Troll's Toll cost ya everything. Good luck with yer next life."
+            promptDiv.classList.toggle("lose-text")
+
+            // Create reset button
+            const resetButton = document.createElement("button")
+            resetButton.innerText = "Reset"
+            feedbackDiv.append(resetButton)
+
+            resetButton.addEventListener("click", () => {
+                feedbackDiv.removeChild(resetButton)
+                resetGame()
+            })
+        }
+    }
+}
+
 // listeners for each answer button click
 choice1.addEventListener("mousedown", handleChoiceClick)
 choice2.addEventListener("mousedown", handleChoiceClick)
@@ -339,29 +365,33 @@ function removeLimb() {
 function gameOver() {
     backgroundMusic.pause()
     backgroundMusic.currentTime = 0
+
     choicesDiv.style.display = "none"
     feedbackDiv.style.display = "flex"
-    if (jobsDone = true) {
-        if (limbCountVar > 0) {
-            winAudio.volume = .075
-            winAudio.play()
-            promptDiv.innerText = "You won! You paid the Troll's Toll with change leftover- time to celebrate!"
-            promptDiv.classList.toggle("win-text")
+
+    endGame();
+    
+    // if (jobsDone = true) {
+    //     if (limbCountVar > 0) {
+    //         winAudio.volume = .075
+    //         winAudio.play()
+    //         promptDiv.innerText = "You won! You paid the Troll's Toll with change leftover- time to celebrate!"
+    //         promptDiv.classList.toggle("win-text")
             
-        } else {
-            failAudio.volume = .025
-            failAudio.play()
-            promptDiv.innerText = "You lose! The Bridge Troll's Toll cost you everything. Good luck with your next life."
-            promptDiv.classList.toggle("lose-text")
-            const resetButton = document.createElement("button")
-            resetButton.innerText = "Reset"
-            feedbackDiv.append(resetButton)
-            resetButton.addEventListener("click", () => {
-                feedbackDiv.removeChild(resetButton)
-                resetGame()
-            })
-        }
-    }
+    //     } else {
+    //         failAudio.volume = .025
+    //         failAudio.play()
+    //         promptDiv.innerText = "You lose! The Bridge Troll's Toll cost you everything. Good luck with your next life."
+    //         promptDiv.classList.toggle("lose-text")
+    //         const resetButton = document.createElement("button")
+    //         resetButton.innerText = "Reset"
+    //         feedbackDiv.append(resetButton)
+    //         resetButton.addEventListener("click", () => {
+    //             feedbackDiv.removeChild(resetButton)
+    //             resetGame()
+    //         })
+    //     }
+    // }
 }
 // reset everything
 function resetGame() {
