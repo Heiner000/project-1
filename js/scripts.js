@@ -1,5 +1,3 @@
-console.log("welcome to the bridge troll toll project")
-
 const startBtn = document.querySelector("#start-btn")
 const instructionsBtn = document.querySelector("#instructions-btn")
 const titleCard = document.querySelector("#title-card")
@@ -9,14 +7,6 @@ const choicesDiv = document.querySelector("#choices-div")
 const tooltip = document.querySelector("#tooltip")
 const feedbackDiv = document.querySelector("#feedback-div")
 const limbCount = document.querySelector("#limb-count")
-const painAudio = new Audio()
-    painAudio.src = document.querySelector("#pain-sound").src
-const backgroundMusic = new Audio()
-    backgroundMusic.src = document.querySelector("#elevator-music").src
-const winAudio = new Audio()
-    winAudio.src = document.querySelector("#victory-music").src
-const failAudio = new Audio()
-    failAudio.src = document.querySelector("#fail-music").src
 
 const choice1 = document.querySelector("#choice-1")
 const choice2 = document.querySelector("#choice-2")
@@ -24,11 +14,11 @@ const choice3 = document.querySelector("#choice-3")
 const choice4 = document.querySelector("#choice-4")
 
 // game state variable
-let jobsDone = false
-// start limbCountVar for loss function
-let limbCountVar = 5
+let gameEnd = false
+// start limbsRemaining for loss function
+let limbsRemaining = 5
 
-const trollingPhrases = [
+const taunts = [
     "*CHOMP* Looks like you'll be hopping away from here on one foot soon enough!",
     "Maybe your brain is better suited for brewing potions than solving riddles!",
     "*crunching and slurrping noises*",
@@ -41,6 +31,11 @@ const trollingPhrases = [
     "Maybe your fingers will be tastier than your brain!",
     "I hope you're better at regrowing limbs than you are solving riddles!"
 ]
+
+const trolls = {
+    phrases: []
+}
+
 // array of riddle objects
 const riddles = [
     {
@@ -144,26 +139,126 @@ const riddles = [
         answer: "Few"
     }
 ]
-// initialize arrays from beginning & keep riddleCount for win function
-let riddleCount = 0
-let riddlesIndex = 0
-let currentRiddle = riddles[riddlesIndex]
+// initialize arrays from beginning & keep riddlesAnswered for win function
+let riddlesAnswered = 0
+let currentRiddleIndex = 0
+let activeRiddle = riddles[currentRiddleIndex]
 
 
 startBtn.addEventListener("click", () => {
-    // hide title card & display the others
-    titleCard.style.display = "none"
-    gameCard.style.display = "flex"
-    promptDiv.style.display = "flex"
-    choicesDiv.style.display = "grid"
-    // play background music
-    backgroundMusic.volume = 0.045
-    backgroundMusic.play()
+    initGame()
     // shuffle riddles array
     shuffle(riddles)
     // display first riddle
     displayRiddle(riddles[0])
 })
+
+function initGame() {
+    // hide title card & display the others
+    hide(titleCard)
+    showFlex(gameCard)
+    showFlex(promptDiv)
+    showGrid(choicesDiv)
+    // play background music
+    backgroundMusic.volume = 0.045
+    backgroundMusic.play()
+}
+
+function renderRiddle(riddle) {
+    promptDiv.innerText = riddle.prompt;
+
+  const randomizedChoices = [];
+
+  const originalChoices = [...riddle.choices];
+
+  while (originalChoices.length > 0) {
+    const randomIndex = Math.floor(Math.random() * originalChoices.length);
+    randomizedChoices.push(originalChoices.splice(randomIndex, 1)[0]);
+  }
+
+  let choiceBtns = document.querySelectorAll(".choice-btn")
+
+  randomizedChoices.forEach((choice, i) => {
+    choiceBtns[i].innerText = choice;
+  });
+}
+
+function endGame() {
+    if (gameEnd) {
+        if (limbsRemaining > 0) {
+            playAudio(winAudio);
+            promptDiv.innerText = "You won!!"
+            promptDiv.classList.toggle("win-text")
+        } else {
+            playAudio(failAudio);
+            promptDiv.innerText = "You lose! The Bridge Troll's Toll cost ya everything. Good luck with yer next life."
+            promptDiv.classList.toggle("lose-text")
+
+            // Create reset button
+            const resetButton = document.createElement("button")
+            resetButton.innerText = "Reset"
+            feedbackDiv.append(resetButton)
+
+            resetButton.addEventListener("click", () => {
+                feedbackDiv.removeChild(resetButton)
+                resetGame()
+            })
+        }
+    }
+}
+
+function resetGame() {
+    // Reset display
+    showFlex(titleCard)
+    hide(gameCard)
+    hide(promptDiv)
+    hide(choicesDiv)
+    hide(feedbackDiv)
+
+    // Reset state
+    currentRiddleIndex = 0
+    limbsRemaining = 5
+    limbCount.innerText = 5
+    promptDiv.className = "prompt-div"
+
+    // Reset stickfigure
+    stickLeftArm.className = "left-arm";
+    stickRightArm.className = "right-arm";
+    stickLeftLeg.className = "left-leg";
+    stickRightLeg.className = "right-leg";
+    stickHead.style.animation = "rock 1s alternate infinite ease-in-out"
+
+    // Reset audio
+    stopAudio(winAudio);
+    stopAudio(failAudio);
+}
+
+const showFlex = (element) => {element.style.display = "flex"}
+
+const showGrid = (element) => {element.style.display = "grid"}
+
+const hide = (element) => {element.style.display = "none"}
+
+// Audio initialization
+const painAudio = new Audio()
+    painAudio.src = document.querySelector("#pain-sound").src
+const backgroundMusic = new Audio()
+    backgroundMusic.src = document.querySelector("#elevator-music").src
+const winAudio = new Audio()
+    winAudio.src = document.querySelector("#victory-music").src
+const failAudio = new Audio()
+    failAudio.src = document.querySelector("#fail-music").src
+
+// Audio helpers
+function playAudio(audio) {
+    audio.volume = 0.075;
+    audio.play();
+}
+
+function stopAudio(audio) {
+    audio.pause();
+    audio.currentTime = 0;
+}
 
 // listeners for each answer button click
 choice1.addEventListener("mousedown", handleChoiceClick)
@@ -188,9 +283,8 @@ function shuffle(array) {
 // function for each click
 function handleChoiceClick(e) {
     const userChoice = e.target.innerText;
-    currentRiddle = riddles[riddlesIndex]
-    const currentRiddleAnswer = currentRiddle.answer
-    // console.log("you clicked:", userChoice, "answer", currentRiddleAnswer)
+    activeRiddle = riddles[currentRiddleIndex]
+    const currentRiddleAnswer = activeRiddle.answer
     // create a checkAnswer function
     checkAnswer(userChoice, currentRiddleAnswer)
 }
@@ -199,18 +293,18 @@ function checkAnswer(userChoice, currentRiddleAnswer) {
     // if user selects correct answer
     if (userChoice === currentRiddleAnswer) {
         // create a positive feedback message
-        choicesDiv.style.display = "none"
-        feedbackDiv.style.display = "flex"
+        hide(choicesDiv)
+        showFlex(feedbackDiv)
         feedbackDiv.innerText = "Gud jorb, we'll see if you can do it again..."
         // advance to next question in array
-        riddlesIndex++
+        currentRiddleIndex++
         // append button to new feedback div
         const nextRiddleBtn = document.createElement("button")
         nextRiddleBtn.id = "next-riddle-btn"
         feedbackDiv.append(nextRiddleBtn)
-        // this riddleCount conditional changes length of game
-        if (riddleCount === 6) { // end of game condition
-            jobsDone = true
+        // this riddlesAnswered conditional changes length of game
+        if (riddlesAnswered === 6) { // end of game condition
+            gameEnd = true
             gameOver()
             // change button to reset game instead of advance question
             nextRiddleBtn.innerText = "Reset"
@@ -221,54 +315,46 @@ function checkAnswer(userChoice, currentRiddleAnswer) {
         } else {    //  proceed to next riddle
             nextRiddleBtn.innerText = "Next Riddle"
             nextRiddleBtn.addEventListener("click", () => {
-                feedbackDiv.style.display = "none"
-                displayRiddle(riddles[riddlesIndex])
+                hide(feedbackDiv)
+                displayRiddle(riddles[currentRiddleIndex])
                 feedbackDiv.removeChild(nextRiddleBtn)
             })
         }
     } else {
         // if user selects wrong answer, and still has limbs
-        if (limbCountVar > 0) {
+        if (limbsRemaining > 0) {
             // select a random phrase to troll user
-            const trollingIndex = Math.floor(Math.random() * trollingPhrases.length)
-            const trollPhrase = document.createElement("p")
-            trollPhrase.className = "troll-phrase"
-            trollPhrase.innerText = trollingPhrases[trollingIndex]
+            const trollingIndex = Math.floor(Math.random() * taunts.length)
+            const taunt = document.createElement("p")
+            taunt.className = "troll-phrase"
+            taunt.innerText = taunts[trollingIndex]
             // replace current troll phrase with new troll phrase after consecutive wrong answers
             if (promptDiv.lastChild.className === "troll-phrase") {
-                promptDiv.lastChild.innerText = trollPhrase.innerText;
+                promptDiv.lastChild.innerText = taunt.innerText;
             } else {
                 // append new troll phrase to prompt
-                promptDiv.appendChild(trollPhrase)
+                promptDiv.appendChild(taunt)
             }
             removeLimb()
         } else {
             // user has no more limbs, game over
-            jobsDone = true
+            gameEnd = true
             gameOver()
         }
     }
 }
+
 // function to display riddle from 
 function displayRiddle(riddle) {
-    riddleCount++
-    promptDiv.innerText = riddle.prompt
-    choicesDiv.style.display = "grid"
-    let choiceBtns = document.querySelectorAll(".choice-btn")
+    riddlesAnswered++
 
-    //  use the sort method w/ random number between -.5 & .5 to determine order
-    const randomizedChoices = []
-    const originalChoices = [...riddle.choices]
-    while (originalChoices.length > 0) {
-        const randomIndex = Math.floor(Math.random() * originalChoices.length)
-        randomizedChoices.push(originalChoices.splice(randomIndex, 1)[0])
-    }
-    // console.log(randomizedChoices)
-    // assign each answer to a button
-    randomizedChoices.forEach((choice, i) => {
-        choiceBtns[i].innerText = choice
-    })
+    renderRiddle(riddle)
+
+    showGrid(choicesDiv)
+
+    let choiceBtns = document.querySelectorAll(".choice-btn")
 }
+
 // stickfigure divs
 const stickHead = document.querySelector(".head")
 const stickLeftArm = document.querySelector(".left-arm")
@@ -276,84 +362,67 @@ const stickRightArm = document.querySelector(".right-arm")
 const stickLeftLeg = document.querySelector(".left-leg")
 const stickRightLeg = document.querySelector(".right-leg")
 
+// Remove limb from DOM
+function removeLimbFromDOM(limb) {
+    if (limb === 'leftArm') {
+        stickLeftArm.classList.remove("left-arm");
+    } else if (limb === 'rightArm') {
+        stickRightArm.classList.remove("right-arm");
+    } else if (limb === 'leftLeg') {
+        stickLeftLeg.classList.remove("left-leg");
+    } else if (limb === 'rightLeg') {
+        stickRightLeg.classList.remove("right-leg");
+    } else if (limb === 'head') {
+        stickHead.style.animation = "none";
+    }
+}
+
+// Update limbs remaining
+const updateLimbsRemaining = (count) => {limbCount.innerText = count}
+
+// Get next limb
+function getNextLimb() {
+    if (limbsRemaining === 4) {
+        return 'leftArm';
+    } else if (limbsRemaining === 3) {
+        return 'rightArm';
+    } else if (limbsRemaining === 2) {
+        return 'leftLeg';
+    } else if (limbsRemaining === 1) {
+        return 'rightLeg';
+    } else {
+        return 'head';
+    }
+}
+
 // function to decrement Hump's limbs on wrong answers.
 function removeLimb() {
-    limbCountVar -= 1
-    painAudio.volume = 0.035;
-    painAudio.play();
-    switch (limbCountVar) {
-        case 4:
-            stickLeftArm.classList.remove("left-arm");
-            break;
-        case 3:
-            stickRightArm.classList.remove("right-arm");
-            break;
-        case 2:
-            stickLeftLeg.classList.remove("left-leg");
-            break;
-        case 1:
-            stickRightLeg.classList.remove("right-leg");
-            break;
-        default:
-            stickHead.style.animation = "none"
-            break;
-    }
-    if (limbCountVar > 0) { // change the limb count on screen
-        limbCount.innerText = limbCountVar        
+    limbsRemaining--;
+
+    const nextLimb = getNextLimb();
+
+    playAudio(painAudio);
+
+    removeLimbFromDOM(nextLimb);
+
+    updateLimbsRemaining(limbsRemaining);
+    
+    if (limbsRemaining > 0) { // change the limb count on screen
+        // update displayed count
+        updateLimbsRemaining(limbsRemaining);
     } else {
-        limbCount.innerText = limbCountVar
-        jobsDone = true        
+        // No limbs left, game over
+        gameEnd = true        
         gameOver()
     }
 }
 
 // gameover screens, both winner & loser
 function gameOver() {
-    backgroundMusic.pause()
-    backgroundMusic.currentTime = 0
-    choicesDiv.style.display = "none"
-    feedbackDiv.style.display = "flex"
-    if (jobsDone = true) {
-        if (limbCountVar > 0) {
-            winAudio.volume = .075
-            winAudio.play()
-            promptDiv.innerText = "You won! You paid the Troll's Toll with change leftover- time to celebrate!"
-            promptDiv.classList.toggle("win-text")
-            
-        } else {
-            failAudio.volume = .025
-            failAudio.play()
-            promptDiv.innerText = "You lose! The Bridge Troll's Toll cost you everything. Good luck with your next life."
-            promptDiv.classList.toggle("lose-text")
-            const resetButton = document.createElement("button")
-            resetButton.innerText = "Reset"
-            feedbackDiv.append(resetButton)
-            resetButton.addEventListener("click", () => {
-                feedbackDiv.removeChild(resetButton)
-                resetGame()
-            })
-        }
-    }
-}
-// reset everything
-function resetGame() {
-    console.log("somebody clicked reset")
-    titleCard.style.display = "flex"
-    gameCard.style.display = "none"
-    promptDiv.style.display = "none"
-    choicesDiv.style.display = "none"
-    feedbackDiv.style.display = "none"
-    riddlesIndex = 0
-    limbCountVar = 5
-    limbCount.innerText = 5
-    promptDiv.className = "prompt-div"
-    stickLeftArm.className = "left-arm";
-    stickRightArm.className = "right-arm";
-    stickLeftLeg.className = "left-leg";
-    stickRightLeg.className = "right-leg";
-    stickHead.style.animation = "rock 1s alternate infinite ease-in-out"
-    winAudio.pause()
-    winAudio.currentTime = 0
-    failAudio.pause()
-    failAudio.currentTime = 0
+    stopAudio(backgroundMusic);
+
+    hide(choicesDiv)
+    showFlex(feedbackDiv)
+
+    endGame();
 }
